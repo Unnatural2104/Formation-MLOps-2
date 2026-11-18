@@ -24,4 +24,10 @@ jobs:
         continue-on-error: true
       - name: Run tests
         run: uv run pytest
+      - name: Run vulture
+        run: uv run vulture ./scripts ./tests
+      - name: Run bandit
+        run: uv run bandit ./scripts ./tests
+      - name: Run detect-secrets
+        run: uv run detect-secrets scan
 
