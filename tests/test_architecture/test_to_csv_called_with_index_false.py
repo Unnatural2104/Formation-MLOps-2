@@ -34,7 +34,7 @@ class _ToCsvIndexVisitor(ast.NodeVisitor):
         self._file_path = file_path
         self.violations: list[str] = []
 
-    def visit_Call(self, node: ast.Call) -> None:  # noqa: N802 (AST API naming)
+    def visit_Call(self, node: ast.Call) -> None:
         if _is_to_csv_call(node) and not _has_index_false_keyword(node):
             rel = self._file_path.relative_to(self._root_dir)
             self.violations.append(
