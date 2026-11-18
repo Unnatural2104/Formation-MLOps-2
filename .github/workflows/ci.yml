@@ -28,6 +28,5 @@ jobs:
       - name: Run pyramid tests
         run: ./tests/tests_pyramid.sh
       - name: Run tests
-        continue-on-error: true # Task is expected to fail (there is a test that trainee will fix"
         run: uv run pytest tests/test_architecture
 
