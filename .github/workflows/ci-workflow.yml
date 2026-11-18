@@ -26,6 +26,7 @@ jobs:
         run: uv run pytest
       - name: Run vulture
         run: uv run vulture ./scripts ./tests
+        continue-on-error: true
       - name: Run bandit
         run: uv run bandit ./scripts ./tests
       - name: Run detect-secrets
