@@ -1,6 +1,7 @@
 import os
 import sys
 from datetime import datetime, timedelta
+import logging
 
 from airflow.sdk import dag, task
 
@@ -22,16 +23,20 @@ def predict():
         prepare_features_with_io(data_path=GENERATED_DATA_PATH,
                                  features_path=features_path,
                                  training_mode=False)
+        logging.info("Data prepared")
         return features_path
 
     # Start completing predict task
-    def predict_with_io_task():
-        pass
+    @task
+    def predict_with_io_task(feature_path):
+        from dags.config import MODEL_PATH, PREDICTIONS_FOLDER
+        predict_with_io(feature_path, MODEL_PATH, PREDICTIONS_FOLDER)
+        logging.info("Prediction done")
 
     # End completing predict task
 
-    # feature_path = prepare_features_with_io_task() # noqa
-    # predict_with_io_task(feature_path=feature_path) # noqa
+    feature_path = prepare_features_with_io_task() # noqa
+    predict_with_io_task(feature_path=feature_path) # noqa
 
 
 predict_dag = predict()
