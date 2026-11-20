@@ -10,6 +10,9 @@ load_dotenv(Path(__file__).parent / ".env")
 MODEL_ID = os.getenv("MODEL_ID")
 
 # Début d'insérer ici le code MLflow
+import mlflow
+mlflow.set_experiment("agent-demo")
+mlflow.bedrock.autolog()
 
 # Fin
 bedrock = boto3.client("bedrock-runtime", region_name=os.environ.get("AWS_REGION"))
